@@ -20,7 +20,12 @@ spring:
 #    static-path-pattern: /static/**
 logging:
   level:
+    #    开启mybatis sql日志，下面是dao路径
     com:
       heyefu:
         template:
           dao: debug
+mybatis:
+  configuration:
+    # mybatis 开启驼峰命名
+    map-underscore-to-camel-case: true

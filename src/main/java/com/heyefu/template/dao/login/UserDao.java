@@ -25,7 +25,7 @@ public interface UserDao {
      * @return java.util.List<com.heyefu.template.pojo.login.User>
      * @author heyefu 19:24 2019/12/25
      **/
-    @ResultMap("user")
+    //@ResultMap("user")
     @Select("select * from users")
     List<User> getAllUser();
 
