@@ -6,8 +6,11 @@ spring:
     servlet:
       content-type: text/html
     encoding: UTF-8
+    cache: false
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/boot_template
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+#  mvc:
+#    static-path-pattern: /static/**
