@@ -8,9 +8,13 @@ spring:
     encoding: UTF-8
     cache: false
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/boot_template
+    url: jdbc:mysql://127.0.0.1:3306/interaction_tv?characterEncoding=UTF-8&serverTimezone=GMT
     username: root
-    password: 123456
+    password: 930912
     driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    view:
+      prefix: /
+      suffix: html
 #  mvc:
 #    static-path-pattern: /static/**
