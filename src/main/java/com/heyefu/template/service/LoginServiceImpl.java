@@ -17,13 +17,22 @@ import java.util.List;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    @Autowired
     UserDao userDao;
-
 
     @Override
     public List<User> getAllUser() {
 
         return userDao.getAllUser();
+    }
+
+    @Override
+    public User getUser(User user) {
+
+        return userDao.getUserById(user);
+    }
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

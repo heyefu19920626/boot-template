@@ -22,4 +22,15 @@ public interface LoginService {
      * @author heyefu 19:25 2019/12/25
      **/
     List<User> getAllUser();
+
+    /**
+     * Description:
+     * <p>
+     * 获取指定用户.
+     *
+     * @param user 参数
+     * @return com.heyefu.template.pojo.login.User
+     * @author heyefu 19:45 2019/12/25
+     **/
+    User getUser(User user);
 }

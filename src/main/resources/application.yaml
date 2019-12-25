@@ -18,3 +18,9 @@ spring:
       suffix: html
 #  mvc:
 #    static-path-pattern: /static/**
+logging:
+  level:
+    com:
+      heyefu:
+        template:
+          dao: debug

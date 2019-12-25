@@ -1,5 +1,6 @@
 package com.heyefu.template.controller;
 
+import com.heyefu.template.pojo.login.User;
 import com.heyefu.template.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +27,13 @@ public class LoginController {
 
     @RequestMapping("/users")
     @ResponseBody
-    public Object getAllUser() {
-
-        return loginService.getAllUser();
+    public Object getAllUser(User user) {
+        if (user.getUserId() == null) {
+            return loginService.getAllUser();
+        }
+        User user1 = loginService.getUser(user);
+        return user1;
+        //return loginService.getUser(user);
     }
 
     @Autowired
