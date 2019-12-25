@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  thymeleaf:
+    mode: HTML5
+    servlet:
+      content-type: text/html
+    encoding: UTF-8
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/boot_template
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
