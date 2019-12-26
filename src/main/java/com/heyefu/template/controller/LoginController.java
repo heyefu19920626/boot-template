@@ -1,14 +1,13 @@
 package com.heyefu.template.controller;
 
+import com.heyefu.template.pojo.login.MyUser;
 import com.heyefu.template.pojo.login.User;
 import com.heyefu.template.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Description:
@@ -28,6 +27,18 @@ public class LoginController {
     public String index() {
 
         return "login";
+    }
+
+    //复杂对象
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    //简单对象
+    //@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public Object login(@RequestBody MyUser user) {
+
+        LOGGER.info("接收浏览器JSON数据:" + user);
+
+        return true;
     }
 
     @RequestMapping("/users")

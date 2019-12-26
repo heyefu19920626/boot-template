@@ -13,11 +13,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-    String userId;
+    private String userId;
 
-    String userName;
+    private String userName;
 
-    String password;
+    private String password;
 
-    String nonce;
+    private String nonce;
+
+    @Override
+    public String toString() {
+        return "User{userId=" + userId + ", userName=" + userName + ", password=" + password + ",nonce=" + nonce + "}";
+    }
 }

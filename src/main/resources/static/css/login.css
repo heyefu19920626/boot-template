@@ -118,7 +118,7 @@ body {
     color: #278aff ;
 }
 
-#submit{
+.submit{
     background-color: #56d600;
     width: 300px;
     font-size: 14px !important;
