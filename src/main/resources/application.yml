@@ -19,6 +19,7 @@ spring:
 #  mvc:
 #    static-path-pattern: /static/**
 logging:
+  config: classpath:log4j2-spring.yml
   level:
     #    开启mybatis sql日志，下面是dao路径
     com:

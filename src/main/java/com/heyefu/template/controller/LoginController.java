@@ -2,10 +2,11 @@ package com.heyefu.template.controller;
 
 import com.heyefu.template.pojo.login.User;
 import com.heyefu.template.service.LoginService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,23 +20,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LoginController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
     LoginService loginService;
 
     @RequestMapping("/")
     public String index() {
 
-        return "index";
+        return "login";
     }
 
     @RequestMapping("/users")
     @ResponseBody
     public Object getAllUser(User user) {
         if (user.getUserId() == null) {
+            LOGGER.info("getAllUser");
             return loginService.getAllUser();
         }
-        User user1 = loginService.getUser(user);
-        return user1;
-        //return loginService.getUser(user);
+        LOGGER.info("getUser");
+        return loginService.getUser(user);
     }
 
     @GetMapping("addUser")
