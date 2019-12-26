@@ -41,7 +41,7 @@ public interface UserDao {
     @Results(id = "user", value = {
             @Result(property = "userId", column = "user_id"),
             @Result(property = "userName", column = "name"),
-            @Result(property = "password", column = "passwd"),
+            @Result(property = "password", column = "password"),
             @Result(property = "nonce", column = "nonce"),
     })
     @Select("select * from users where user_id = #{userId}")

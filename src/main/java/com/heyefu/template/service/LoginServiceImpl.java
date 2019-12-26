@@ -1,5 +1,7 @@
 package com.heyefu.template.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.heyefu.template.dao.login.UserDao;
 import com.heyefu.template.pojo.login.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List<User> getAllUser() {
-
-        return userDao.getAllUser();
+        Page<User> page = PageHelper.startPage(0, 5);
+        userDao.getAllUser();
+        System.out.println("total: " + page.getTotal());
+        System.out.println("pageSize: " + page.size());
+        return page.getResult();
     }
 
     @Override
