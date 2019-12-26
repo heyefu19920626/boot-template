@@ -4,6 +4,8 @@ import com.heyefu.template.pojo.login.User;
 import com.heyefu.template.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,6 +36,13 @@ public class LoginController {
         User user1 = loginService.getUser(user);
         return user1;
         //return loginService.getUser(user);
+    }
+
+    @GetMapping("addUser")
+    @ResponseBody
+    public User add(User user) {
+
+        return loginService.addUser(user);
     }
 
     @Autowired

@@ -36,6 +36,13 @@ public class LoginServiceImpl implements LoginService {
         return userDao.getUserById(user);
     }
 
+    @Override
+    public User addUser(User user) {
+        userDao.addUser(user);
+
+        return user;
+    }
+
     @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;

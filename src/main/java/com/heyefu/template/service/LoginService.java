@@ -33,4 +33,15 @@ public interface LoginService {
      * @author heyefu 19:45 2019/12/25
      **/
     User getUser(User user);
+
+    /**
+     * Description:
+     * <p>
+     * 添加用户,并返回完整用户
+     *
+     * @param user 要添加的用户信息
+     * @return com.heyefu.template.pojo.login.User
+     * @author heyefu 9:20 2019/12/26
+     **/
+    User addUser(User user);
 }

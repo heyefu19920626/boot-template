@@ -46,4 +46,18 @@ public interface UserDao {
     })
     @Select("select * from users where user_id = #{userId}")
     User getUserById(User user);
+
+    /**
+     * Description:
+     * <p>
+     * 插入一条用户记录，并返回自增的主键值，将其赋予到userId字段上
+     *
+     * @param user 用户
+     * @return int 影响行数
+     * @author heyefu 9:18 2019/12/26
+     **/
+    @Insert("insert into users(user_id, name, password) values (#{userId}, #{userName}, #{password})")
+    @Options(useGeneratedKeys = true, keyProperty = "userId")
+    int addUser(User user);
+
 }
