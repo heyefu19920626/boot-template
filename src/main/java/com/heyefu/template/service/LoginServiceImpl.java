@@ -25,7 +25,12 @@ public class LoginServiceImpl implements LoginService {
     public boolean login(User user) {
         User realUser = userDao.getUserById(user);
 
-        return realUser != null && realUser.getPassword().equals(user.getPassword());
+        if (realUser != null && realUser.getPassword().equals(user.getPassword())) {
+            user.setUserName(realUser.getUserName());
+            //user = realUser;
+            return true;
+        }
+        return false;
     }
 
     @Override
