@@ -40,7 +40,7 @@ public interface UserDao {
      **/
     @Results(id = "user", value = {
             @Result(property = "userId", column = "user_id"),
-            @Result(property = "userName", column = "name"),
+            @Result(property = "userName", column = "user_name"),
             @Result(property = "password", column = "password"),
             @Result(property = "nonce", column = "nonce"),
     })
