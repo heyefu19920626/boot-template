@@ -2,6 +2,7 @@ package com.heyefu.template.service;
 
 import com.heyefu.template.pojo.login.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -12,6 +13,19 @@ import java.util.List;
  * Time: 19:14
  **/
 public interface LoginService {
+
+    /**
+     * Description:
+     * <p>
+     * 用户登录。
+     *
+     * 返回登录状态
+     *
+     * @param user 用户
+     * @return boolean
+     * @author heyefu 15:53 2019/12/27
+     **/
+    boolean login(User user);
 
     /**
      * Description:

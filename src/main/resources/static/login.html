@@ -76,10 +76,11 @@
                 var myUser = {};
                 myUser["count"] = 2;
                 var user1 = {};
-                user1["userId"] = "heyefu";
-                user1["password"] = "930912";
+                user1["userId"] = "root";
+                user1["password"] = "root";
                 myUser["users"] = [user1, user1];
-                axios.post("/login", myUser, config).then(res => {
+                axios.post("/loginUser", jsonData, config).then(res => {
+                    window.location.href = "/index";
                     console.log("success");
                 }).catch(err => {
                     console.log("fail");

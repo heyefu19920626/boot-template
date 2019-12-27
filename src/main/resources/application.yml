@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9090
 spring:
   thymeleaf:
     mode: HTML5
@@ -14,9 +14,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
     view:
-      prefix: /
       suffix: html
-#  mvc:
 #    static-path-pattern: /static/**
 logging:
   config: classpath:log4j2-spring.yml

@@ -22,6 +22,13 @@ public class LoginServiceImpl implements LoginService {
     UserDao userDao;
 
     @Override
+    public boolean login(User user) {
+        User realUser = userDao.getUserById(user);
+
+        return realUser != null && realUser.getPassword().equals(user.getPassword());
+    }
+
+    @Override
     public List<User> getAllUser() {
         Page<User> page = PageHelper.startPage(0, 5);
         userDao.getAllUser();

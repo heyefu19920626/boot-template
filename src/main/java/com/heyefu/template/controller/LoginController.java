@@ -1,13 +1,17 @@
 package com.heyefu.template.controller;
 
-import com.heyefu.template.pojo.login.MyUser;
+import com.heyefu.template.common.ResultResponse;
+import com.heyefu.template.constant.GlobalConstant;
 import com.heyefu.template.pojo.login.User;
 import com.heyefu.template.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Description:
@@ -24,21 +28,58 @@ public class LoginController {
     LoginService loginService;
 
     @RequestMapping("/")
-    public String index() {
+    public String loginPage() {
 
-        return "login";
+        return "redirect:login.html";
     }
 
-    //复杂对象
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    //简单对象
-    //@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+    @GetMapping("/index")
+    public String goIndex(HttpServletRequest request, Model model) {
+        User user = (User) request.getSession().getAttribute(GlobalConstant.USER_SESSION_KEY);
+        model.addAttribute("user", user);
+        model.addAttribute("name", user.getUserName());
+        return "index";
+    }
+
+    /**
+     * Description:
+     * <p>
+     * //简单对象
+     * //@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+     * <p>
+     * //复杂对象
+     * //@RequestMapping(value = "/loginUser", method = RequestMethod.POST)
+     * <p>
+     * 注意此处的请求路径，不能为与上面login.html前缀相同的login,否则会映射错误
+     * <p>
+     * 使用@PostMapping可以直接注入复杂与简单对象
+     *
+     * @param user 用户
+     * @return java.lang.Object
+     * @author heyefu 15:13 2019/12/27
+     **/
+    @PostMapping(value = "/loginUser")
     @ResponseBody
-    public Object login(@RequestBody MyUser user) {
+    public ResultResponse<String> login(@RequestBody User user, HttpServletRequest request) {
+        ResultResponse<String> result = new ResultResponse<>();
+        boolean success = loginService.login(user);
 
-        LOGGER.info("接收浏览器JSON数据:" + user);
+        if (success) {
+            request.getSession().setAttribute(GlobalConstant.USER_SESSION_KEY, user);
+            result.setT("登录成功");
+        } else {
+            result.setT("登录失败");
+        }
+        result.setStatus(success);
 
-        return true;
+        return result;
+    }
+
+    @GetMapping("logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute(GlobalConstant.USER_SESSION_KEY);
+
+        return "redirect:login.html";
     }
 
     @RequestMapping("/users")

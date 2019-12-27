@@ -22,10 +22,15 @@
     </properties>
 
     <dependencies>
-        <!--redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--前端模板-->
         <dependency>
@@ -38,10 +43,6 @@
                     <groupId>org.springframework.boot</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <!--log4j2-->
         <dependency>
@@ -71,6 +72,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <!--redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!--lombok-->
         <dependency>
