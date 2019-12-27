@@ -27,15 +27,21 @@ public class LoginController {
 
     LoginService loginService;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String loginPage() {
 
-        return "redirect:login.html";
+        return "login";
     }
 
-    @GetMapping("/index")
-    public String goIndex(HttpServletRequest request, Model model) {
-        User user = (User) request.getSession().getAttribute(GlobalConstant.USER_SESSION_KEY);
+    @GetMapping("/{userId}")
+    public String goIndex(@PathVariable String userId, Model model) {
+        User user = new User();
+        user.setUserId(userId);
+        user = loginService.getUser(user);
+        //经常会有其他请求映射到这
+        if (user == null) {
+            return "";
+        }
         model.addAttribute("user", user);
         model.addAttribute("name", user.getUserName());
         return "index";
@@ -62,15 +68,15 @@ public class LoginController {
     @ResponseBody
     public ResultResponse<String> login(@RequestBody User user, HttpServletRequest request) {
         ResultResponse<String> result = new ResultResponse<>();
-        boolean success = loginService.login(user);
+        ResultResponse<User> response = loginService.login(user);
 
-        if (success) {
-            request.getSession().setAttribute(GlobalConstant.USER_SESSION_KEY, user);
+        if (response.isStatus()) {
+            request.getSession().setAttribute(GlobalConstant.USER_SESSION_KEY, response.getT());
             result.setT("登录成功");
         } else {
-            result.setT("登录失败");
+            result.setT("用戶名或密码错误");
         }
-        result.setStatus(success);
+        result.setStatus(response.isStatus());
 
         return result;
     }
@@ -82,7 +88,7 @@ public class LoginController {
         return "redirect:login.html";
     }
 
-    @RequestMapping("/users")
+    @GetMapping("/users")
     @ResponseBody
     public Object getAllUser(User user) {
         if (user.getUserId() == null) {

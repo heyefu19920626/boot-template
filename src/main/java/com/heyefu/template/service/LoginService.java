@@ -1,8 +1,8 @@
 package com.heyefu.template.service;
 
+import com.heyefu.template.common.ResultResponse;
 import com.heyefu.template.pojo.login.User;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ public interface LoginService {
      * @return boolean
      * @author heyefu 15:53 2019/12/27
      **/
-    boolean login(User user);
+    ResultResponse<User> login(User user);
 
     /**
      * Description:

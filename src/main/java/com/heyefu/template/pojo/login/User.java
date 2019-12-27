@@ -1,7 +1,8 @@
 package com.heyefu.template.pojo.login;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * Description:
@@ -10,9 +11,8 @@ import lombok.Setter;
  * Create in: 2019-12-25
  * Time: 19:11
  **/
-@Getter
-@Setter
-public class User {
+@Data
+public class User implements Serializable {
     private String userId;
 
     private String userName;
@@ -20,9 +20,4 @@ public class User {
     private String password;
 
     private String nonce;
-
-    @Override
-    public String toString() {
-        return "User{userId=" + userId + ", userName=" + userName + ", password=" + password + ",nonce=" + nonce + "}";
-    }
 }

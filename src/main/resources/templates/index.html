@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<!--这里的具体语法形式，title怎么替换的-->
+
+<head th:replace="common::common_head(~{::title}, ~{::link}, ~{::style})">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Index</title>
+    <link>
+    <style>
+        /*独有样式*/
+    </style>
 </head>
 <body>
-
 <h1>Index</h1>
 <h2 th:text="'Welcome, ' + ${user.userId}">Welcome</h2>
 <h2 th:text="'Welcome, ' + ${user.getUserId()}">Welcome</h2>

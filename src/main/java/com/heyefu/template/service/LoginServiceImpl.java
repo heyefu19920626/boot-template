@@ -2,6 +2,7 @@ package com.heyefu.template.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.heyefu.template.common.ResultResponse;
 import com.heyefu.template.dao.login.UserDao;
 import com.heyefu.template.pojo.login.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,18 @@ public class LoginServiceImpl implements LoginService {
     UserDao userDao;
 
     @Override
-    public boolean login(User user) {
+    public ResultResponse<User> login(User user) {
         User realUser = userDao.getUserById(user);
 
+        ResultResponse<User> response = new ResultResponse<>();
         if (realUser != null && realUser.getPassword().equals(user.getPassword())) {
-            user.setUserName(realUser.getUserName());
-            //user = realUser;
-            return true;
+            response.setStatus(true);
+            response.setT(realUser);
+            return response;
         }
-        return false;
+        response.setStatus(false);
+        response.setT(user);
+        return response;
     }
 
     @Override
