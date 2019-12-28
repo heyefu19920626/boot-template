@@ -3,6 +3,7 @@ server:
   servlet:
     session:
       timeout: 300s
+#    context-path: /tv
 spring:
   thymeleaf:
     mode: HTML5

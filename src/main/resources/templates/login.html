@@ -4,14 +4,14 @@
     <title>互动电视</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
     <style>
-         /*独有样式*/
+        /*独有样式*/
     </style>
 </head>
 <body>
 <div class="box">
     <div class="login-box">
         <div class="login-title text-center">
-            <img src="/img/logo.png" alt="Logo"/>
+            <img th:src="@{/img/logo.png}" alt="Logo"/>
         </div>
         <div class="login-title">
             <hr class="hr"/>
@@ -73,8 +73,8 @@
                 user1["userId"] = "root";
                 user1["password"] = "root";
                 myUser["users"] = [user1, user1];
-                axios.post("/loginUser", jsonData, config).then(res => {
-                    window.location.href = "/" + this.username;
+                axios.post(context + "loginUser", jsonData, config).then(res => {
+                    window.location.href = context + this.username + "";
                     console.log("success");
                 }).catch(err => {
                     console.log("fail");

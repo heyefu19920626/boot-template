@@ -33,7 +33,8 @@ public class LoginHandler implements HandlerInterceptor {
         User user = (User) request.getSession().getAttribute(GlobalConstant.USER_SESSION_KEY);
 
         if (user == null || user.getUserId() == null || "".equals(user.getUserId())) {
-            response.sendRedirect("/");
+            String context = "".equals(request.getContextPath()) ? "/" :request.getContextPath();
+            response.sendRedirect(context);
             LOGGER.info("未登录");
             return false;
         }

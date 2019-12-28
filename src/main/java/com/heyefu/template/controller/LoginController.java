@@ -85,7 +85,7 @@ public class LoginController {
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute(GlobalConstant.USER_SESSION_KEY);
 
-        return "redirect:login.html";
+        return "login";
     }
 
     @GetMapping("/users")

@@ -15,6 +15,6 @@
 <h2 th:text="'Welcome, ' + ${user.userId}">Welcome</h2>
 <h2 th:text="'Welcome, ' + ${user.getUserId()}">Welcome</h2>
 <h2 th:text="'Welcome, ' + ${name}">Welcome</h2>
-<a href="/logout">注销</a>
+<a th:href="@{/logout}">注销</a>
 </body>
 </html>
