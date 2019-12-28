@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common::common_head(~{::title}, ~{::link}, ~{::style})">
+<head th:replace="common_head::common_head(~{::title}, ~{::link}, ~{::style})">
     <title>互动电视</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
     <style>
@@ -55,29 +55,20 @@
         },
         methods: {
             login: function (event) {
-                var formData = new FormData(event.target);
-                console.log(this.username, this.password);
-                console.log(formData);
+                let formData = new FormData(event.target);
                 //根据后台接收参数格式进行修改
                 let config = {
                     headers: {
-                        // 'Content-Type': 'application/json'
+                        // 默认值
                         'Content-Type': 'application/json'
                     }
                 };
-                var jsonData = {};
+                let jsonData = {};
                 formData.forEach((value, key) => jsonData[key] = value);
-                var myUser = {};
-                myUser["count"] = 2;
-                var user1 = {};
-                user1["userId"] = "root";
-                user1["password"] = "root";
-                myUser["users"] = [user1, user1];
                 axios.post(context + "loginUser", jsonData, config).then(res => {
-                    window.location.href = context + this.username + "";
-                    console.log("success");
+                    res.data.status ? window.location.href = context + this.username : layer.alert(res.data.t);
                 }).catch(err => {
-                    console.log("fail");
+                    console.log(err);
                 });
             }
         }

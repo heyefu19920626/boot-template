@@ -6,7 +6,6 @@ body {
     height: 100%;
     margin: 0;
     overflow: hidden;
-    color: #fff;
     /*background-image: none !important;*/
 }
 @media screen and (min-width: 800px) {
@@ -93,6 +92,7 @@ body {
     font-size: 20pt;
     font-family: Microsoft YaHei;
     width: 50%;
+    color: #ffffff;
 }
 
 .hr {

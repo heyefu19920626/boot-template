@@ -11,11 +11,12 @@
     <script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
     <script th:src="@{/js/vue/vue.js}"></script>
     <script th:src="@{/js/axios/axios.min.js}"></script>
+    <script th:src="@{/js/layer/layer.js}"></script>
     <!--引入各页面独有样式-->
     <th:block th:replace="${links}"/>
     <th:block th:replace="${styles}"/>
     <script th:inline="javascript">
-        var context = /*[[@{/}]]*/ '';
+        const context = /*[[@{/}]]*/ '';
     </script>
 </head>
 <body>
