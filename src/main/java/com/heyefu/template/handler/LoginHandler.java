@@ -35,7 +35,7 @@ public class LoginHandler implements HandlerInterceptor {
         if (user == null || user.getUserId() == null || "".equals(user.getUserId())) {
             String context = "".equals(request.getContextPath()) ? "/" :request.getContextPath();
             response.sendRedirect(context);
-            LOGGER.info("未登录");
+            LOGGER.info("{},未登录，无权限！", request.getRequestURI());
             return false;
         }
 

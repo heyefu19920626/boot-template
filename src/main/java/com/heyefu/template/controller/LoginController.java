@@ -36,23 +36,20 @@ public class LoginController {
     /**
      * 这里误会拦截很多请求
      *
-     * @param userId 用户id
-     * @param model 模板
+     * @param model   模板
      * @param request request
      */
     @GetMapping("/{userId}")
-    public String goIndex(@PathVariable String userId, Model model, HttpServletRequest request) {
-        User user = new User();
-        user.setUserId(userId);
-        //这里没有校验密码
-        user = loginService.getUser(user);
+    public String goIndex(Model model, HttpServletRequest request, @PathVariable String userId) {
+        User user = (User) request.getSession().getAttribute(GlobalConstant.USER_SESSION_KEY);
         //经常会有其他请求映射到这
+        User currentUser = new User();
+        currentUser.setUserId(userId);
+        loginService.getUser(currentUser);
         if (user == null) {
-            request.getSession().removeAttribute(GlobalConstant.USER_SESSION_KEY);
             return "login";
         }
         model.addAttribute("user", user);
-        model.addAttribute("name", user.getUserName());
         return "index";
     }
 

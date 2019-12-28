@@ -56,8 +56,8 @@ public interface UserDao {
      * @return int 影响行数
      * @author heyefu 9:18 2019/12/26
      **/
-    @Insert("insert into users(user_id, name, password) values (#{userId}, #{userName}, #{password})")
-    @Options(useGeneratedKeys = true, keyProperty = "userId")
+    @Insert("insert into users(user_id, user_name, password) values (#{userId}, #{userName}, #{password})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int addUser(User user);
 
 }
