@@ -6,6 +6,26 @@
     <link>
     <style>
         /*独有样式*/
+        .drag {
+            position: absolute;
+            width: 100%;
+            height: 500px;
+            background-color: red;
+        }
+
+        .drag_box {
+            /* 使用定位，脱离文档流 */
+            position: relative;
+            top: 100px;
+            left: 100px;
+            width: 150px;
+            height: 90px;
+            border: 1px solid #666;
+            background-color: #ccc;
+            /* 鼠标移入变成拖拽手势 */
+            cursor: move;
+            z-index: 3000;
+        }
     </style>
 </head>
 <body>
@@ -26,13 +46,66 @@
     </ul>
     <!--ml-auto 居右; mr-auto 居左-->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-            <a class="nav-link" href="#" th:text="${user.userName}"></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/logout}">注销</a>
+        <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" th:text="${user.userName}" href="#" data-toggle="dropdown"> </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" th:href="@{/logout}">注销</a>
+            </div>
         </li>
     </ul>
 </nav>
+
+<div class="drag">
+    <div id="drag" class="drag_box" v-drag></div>
+</div>
 </body>
+<script>
+    let app = new Vue({
+        el: "#drag",
+        data() {
+            return {};
+        },
+        //注册局部组件指令
+        directives: {
+            drag: function (el) {
+                let dragBox = el; //获取当前元素
+                dragBox.onmousedown = e => {
+                    console.log("client: (" + e.clientX + "," + e.clientY + ")");
+                    console.log("offsetX: (" + e.offsetX + "," + e.offsetY + ")");
+                    console.log("layerX: (" + e.layerX + "," + e.layerY + ")");
+                    console.log("-------------");
+                    //算出鼠标相对元素的位置
+                    let disX = e.clientX - dragBox.offsetLeft;
+                    let disY = e.clientY - dragBox.offsetTop;
+                    document.onmousemove = e => {
+                        //用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
+                        let left = e.clientX - disX;
+                        let top = e.clientY - disY;
+
+                        if (left < -6) {
+                            return left = -6;
+                        }
+
+                        if (left > 684) {
+                            return left = 684
+                        }
+
+                        console.log("client: (" + e.clientX + "," + e.clientY + ")");
+                        console.log("offsetX: (" + e.offsetX + "," + e.offsetY + ")");
+
+                        //移动当前元素
+                        dragBox.style.left = left + "px";
+                        dragBox.style.top = top + "px";
+                    };
+                    document.onmouseup = e => {
+                        //鼠标弹起来的时候不再移动
+                        document.onmousemove = null;
+                        //预防鼠标弹起来后还会循环（即预防鼠标放上去的时候还会移动）
+                        document.onmouseup = null;
+                    };
+                };
+            }
+        }
+    });
+</script>
 </html>
