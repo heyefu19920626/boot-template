@@ -6,7 +6,7 @@
     <style>
         /*独有样式*/
         .drag {
-            position: absolute;
+            /*position: absolute;*/
             width: 100%;
             height: 500px;
             background-color: red;
@@ -24,6 +24,10 @@
             /* 鼠标移入变成拖拽手势 */
             cursor: move;
             z-index: 3000;
+        }
+
+        .bd-sidebar {
+            height: calc(100vh - 3rem);
         }
     </style>
 </head>
@@ -54,8 +58,31 @@
     </ul>
 </nav>
 
-<div class="drag">
-    <div id="drag" class="drag_box" v-drag></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2 bd-sidebar bg-dark">
+            <!-- 垂直导航栏 -->
+            <nav class="navbar bg-dark navbar-dark">
+                <!-- Links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 3</a>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+
+        <div class="drag col-sm-10">
+            <div id="drag" class="drag_box" v-drag></div>
+        </div>
+    </div>
 </div>
 </body>
 <script>
