@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common_head::common_head(~{::title}, ~{::link}, ~{::style})">
+<head th:replace="common_head::common_head(~{::title}, ~{::link}, ~{::#crypto}, ~{})">
     <title>互动电视</title>
+    <script id="crypto" th:src="@{/js/tools/crypto-js.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
-    <style>
-        /*独有样式*/
-    </style>
 </head>
 <body>
 <div class="box">
@@ -18,7 +16,6 @@
             <span class="title">互动电视</span>
             <hr class="hr_t"/>
         </div>
-
         <div class="login-content ">
             <div class="form" id="login">
                 <form class="form" @submit.prevent="login($event)">
@@ -46,32 +43,5 @@
     </div>
 </div>
 </body>
-<script>
-    var app = new Vue({
-        el: "#login",
-        data: {
-            username: "",
-            password: "",
-        },
-        methods: {
-            login: function (event) {
-                let formData = new FormData(event.target);
-                //根据后台接收参数格式进行修改
-                let config = {
-                    headers: {
-                        // 默认值
-                        'Content-Type': 'application/json'
-                    }
-                };
-                let jsonData = {};
-                formData.forEach((value, key) => jsonData[key] = value);
-                axios.post(context + "loginUser", jsonData, config).then(res => {
-                    res.data.status ? window.location.href = context + this.username : layer.alert(res.data.t);
-                }).catch(err => {
-                    console.log(err);
-                });
-            }
-        }
-    });
-</script>
+<script th:src="@{/js/login.js}"></script>
 </html>

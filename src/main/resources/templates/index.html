@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--这里的具体语法形式，title怎么替换的-->
-<head th:replace="common_head::common_head(~{::title}, ~{::link}, ~{::style})">
+<head th:replace="common_head::common_head(~{::title}, ~{}, ~{}, ~{::style})">
     <title>Index</title>
-    <link>
     <style>
         /*独有样式*/
         .drag {
@@ -60,7 +59,7 @@
 </div>
 </body>
 <script>
-    let app = new Vue({
+    let drag_app = new Vue({
         el: "#drag",
         data() {
             return {};

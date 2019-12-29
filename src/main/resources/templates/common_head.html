@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="common_head(title, links, styles)">
+<head th:fragment="common_head(title, links, scripts, styles)">
     <title th:replace="${title}">公共页面</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0"/>
     <link rel="icon" th:href="@{/img/favicon.ico}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/bootstrap.min.css}"/>
-    <script th:src="@{/js/jquery/jquery-3.4.1.slim.min.js}"></script>
-    <script th:src="@{/js/popper/popper.min.js}"></script>
-    <script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-    <script th:src="@{/js/vue/vue.js}"></script>
-    <script th:src="@{/js/axios/axios.min.js}"></script>
-    <script th:src="@{/js/layer/layer.js}"></script>
+    <script th:src="@{/js/tools/jquery/jquery-3.4.1.slim.min.js}"></script>
+    <script th:src="@{/js/tools/popper/popper.min.js}"></script>
+    <script th:src="@{/js/tools/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/js/tools/vue/vue.js}"></script>
+    <script th:src="@{/js/tools/axios/axios.min.js}"></script>
+    <script th:src="@{/js/tools/layer/layer.js}"></script>
     <!--引入各页面独有样式-->
     <th:block th:replace="${links}"/>
     <th:block th:replace="${styles}"/>
     <script th:inline="javascript">
         const context = /*[[@{/}]]*/ '';
     </script>
+    <th:block th:replace="${scripts}"/>
 </head>
-<body>
-</body>
 </html>
