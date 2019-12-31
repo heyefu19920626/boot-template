@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common_head::common_head(~{::title}, ~{::link}, ~{::script}, ~{::style})">
+    <title>投票</title>
+    <!-- 引入js -->
+    <!--<link th:href="@{/css/app/fileinput.css}">-->
+    <link th:href="@{/css/fileinput.css}">
+    <script th:src="@{/js/app/rolldate.min.js}"></script>
+    <script th:src="@{/js/app/fileinput.js}"></script>
+    <script th:src="@{/js/app/zh.js}"></script>
+    <script th:src="@{/js/app/jtopo.js}"></script>
+    <script th:src="@{/js/app/app_common.js}"></script>
+    <script th:src="@{/js/app/vote.js}"></script>
+    <style>
+        .no-padding {
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="page-content">
+<div class="container-fluid" style="background-color: #fff; ">
+    <div class="card">
+        <div class="card-header">
+            <span>投票配置</span>
+            <span class="btn btn-primary btn-sm ml-auto" id="save">
+              保存
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-body col-sm-4">
+            <div class="card">
+                <!--应用基础信息配置-->
+                <div class="card-header">
+                    <span>应用配置</span>
+                </div>
+                <div class="card-body">
+                    <form id="app_basic">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="appName">
+                                应用名称<span style="color: red">*</span>
+                            </label>
+                            <div class="col-sm-8">
+                                <input id="appName" name="appName" class="form-control required"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="appVersion">
+                                应用版本<span style="color: red">*</span>
+                            </label>
+                            <div class="col-sm-8">
+                                <input id="appVersion" value="1.0.0" name="appVersion" class="form-control required"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="is_forced">
+                                强制启动
+                            </label>
+                            <div class="col-sm-8">
+                                <select id="is_forced" name="is_forced" class="form-control">
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--话题内容配置-->
+                <div class="card-header">
+                    <span>话题内容配置</span>
+                </div>
+                <div class="card-body">
+                    <form id="app">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="labelText">
+                                话题名称<span style="color: red">*</span>
+                            </label>
+                            <div class="col-sm-8">
+                                <input id="labelText" name="labelText" class="form-control required"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="paragraphText">
+                                话题描述
+                            </label>
+                            <div class="col-sm-8">
+                                <textarea id="paragraphText" rows="2" name="paragraphText"
+                                          class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="voteBtnText">
+                                按键名称<span style="color: red;">*</span>
+                            </label>
+                            <div class="col-sm-8">
+                                <input id="voteBtnText" name="voteBtnText" value="支持" class="form-control required"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="postUrl">
+                                结果地址<span style="color: red;">*</span>
+                            </label>
+                            <div class="col-sm-8">
+                                <input id="postUrl" name="postUrl" class="form-control required"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="result_pic">
+                                结果图片
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="file" id="result_pic" name="result_pic" class="form-control"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--话题选项配置-->
+                <div class="card-header">
+                    <span>话题选项配置</span>
+                </div>
+                <div id="topic_options" class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="option_name_0">
+                                选项名称<span style="color: red;">*</span>
+                            </label>
+                            <div class="col-sm-8">
+                                <input id="option_name_0" class="form-control required"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="option_detail_0">
+                                选项详情
+                            </label>
+                            <div class="col-sm-8">
+                                <input id="option_detail_0" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="option_pic_0">
+                                选项图片
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="file" id="option_pic_0" name="option_pic_0" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <button class="btn btn-primary form-control" onclick="removeOption(this)">移除本选项</button>
+                        </div>
+                    </form>
+                    <div class="form-group row">
+                        <button class="btn btn-primary form-control" onclick="addOption(this)">添加选项</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body col-sm-8">
+            <div class="card">
+                <!--播放效果配置-->
+                <div class="card-header">
+                    <span>播放配置</span>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-sm-8 row" style="margin: 0">
+                                <label class="col-sm-2 col-form-label"
+                                       style="padding-left: 0; padding-right: 0; text-align: left"
+                                       for="playTime">
+                                    播放时间<span style="color: red;">*</span>
+                                </label>
+                                <div class="col-sm-5">
+                                    <input id="playTime" placeholder="开始时间" name="playTime"
+                                           class="form-control required default-date"/>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input id="stopTime" name="stopTime" placeholder="结束时间"
+                                           class="form-control required default-date"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4 row">
+                                <label class="col-sm-4 col-form-label"
+                                       style="padding-left: 0; padding-right: 0; text-align: left"
+                                       for="chnlName">
+                                    投放频道
+                                </label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="chnlName" name="chnlName">
+                                        <option value="cctv2">CCTV2</option>
+                                        <option value="cctv5">CCTV5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" style="padding-right:0;text-align: left"
+                                   for="opacity_">
+                                场景不透明度
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="range" class="custom-range" min="0" id="opacity_" max="100" value="50"/>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" min="0" max="1" id="opacity" name="opacity"
+                                       value="0.5"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-header">
+                    <span>效果配置</span>
+                </div>
+                <div class="card-body" id="view">
+                    <div>
+                        <canvas id="canvas"></canvas>
+                    </div>
+                    <form style="margin-top: 10px;">
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label" style="padding-left: 0; padding-right: 0"
+                                   for="xPos">
+                                左上角X
+                            </label>
+                            <div class="col-sm-2">
+                                <input id="xPos" name="xPos" class="form-control"/>
+                            </div>
+                            <label class="col-sm-1 col-form-label" style="padding-left: 0; padding-right: 0"
+                                   for="yPos">
+                                左上角Y
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="number" id="yPos" name="yPos" class="form-control"/>
+                            </div>
+                            <label class="col-sm-1 col-form-label" style="padding-left: 0; padding-right: 0"
+                                   for="width">
+                                宽度
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="number" id="width" name="width" class="form-control"/>
+                            </div>
+                            <label class="col-sm-1 col-form-label" style="padding-left: 0; padding-right: 0"
+                                   for="height">
+                                高度
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="number" id="height" name="height" class="form-control"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

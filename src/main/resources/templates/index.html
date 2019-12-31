@@ -29,9 +29,14 @@
         .bd-sidebar {
             height: calc(100vh - 3rem);
         }
+        body{
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
+
+<!--顶部导航栏-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -60,13 +65,14 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2 bd-sidebar bg-dark">
+        <!--左侧导航栏-->
+        <div class="col-sm-1 bd-sidebar bg-dark">
             <!-- 垂直导航栏 -->
             <nav class="navbar bg-dark navbar-dark">
                 <!-- Links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link 1</a>
+                        <a class="nav-link" id="vote" href="#">应用管理</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link 2</a>
@@ -79,13 +85,18 @@
             </nav>
         </div>
 
-        <div class="drag col-sm-10">
-            <div id="drag" class="drag_box" v-drag></div>
+        <div class="col-sm-11" style="padding: 0;">
+            <iframe frameborder="0" scrolling="auto" id="iframe" style="width: 100%; height: 100%;"></iframe>
         </div>
     </div>
 </div>
 </body>
 <script>
+    $('#vote').click(function (element) {
+        $(element).addClass("active");
+        $('#iframe').attr("src", "/app/vote");
+    });
+
     let drag_app = new Vue({
         el: "#drag",
         data() {
