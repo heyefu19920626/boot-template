@@ -12,10 +12,11 @@ $(function () {
     //全局初始化日期插件
     new Rolldate({
         el: "#playTime",
-        format: "YYYY-MM-DD HH:mm:ss"
+        format: "YYYY-MM-DD hh:mm:ss"
     });
     new Rolldate({
-        el: "#stopTime"
+        el: "#stopTime",
+        format: "YYYY-MM-DD hh:mm:ss"
     });
 
     // $('.default-date').datetimepicker({
@@ -41,18 +42,15 @@ $(function () {
     initPicUpload("result_pic");
     initPicUpload("option_pic_0");
 
-    setTimeout(function () {
-        NODE = initPosition();
-        setPosition(NODE.getBound());
-    }, 1000);
+    NODE = initNodePosition();
+    setPosition(NODE.getBound());
 });
 
 function initCanvasSize() {
-    let view = $('#view');
-    WIDTH = view.width() - 30;
-    HEIGHT = Math.round(WIDTH * 1080 / 1920);
-    $('#canvas').height(HEIGHT).width(WIDTH);
-    console.log("init canvas");
+    let view = $('#canvas');
+    WIDTH = view.width();
+    HEIGHT = view.height();
+    view.attr('height', HEIGHT).attr('width', WIDTH);
 }
 
 /**
@@ -103,40 +101,33 @@ function verifyNull() {
     });
 }
 
-function initPosition() {
+var stage;
+var scene;
+
+function initNodePosition() {
     let canvas = document.getElementById('canvas');
-    let stage = new JTopo.Stage(canvas); // 创建一个舞台对象
-    stage.mode = 'edit';
-    let scene = new JTopo.Scene(stage); // 创建一个场景对象
+    stage = new JTopo.Stage(canvas);
+    scene = new JTopo.Scene(stage);
+    stage.add(scene);
     scene.alpha = 1;
+    stage.mode = "edit";
     scene.backgroundColor = "237,240,243";
-    scene.mode = 'edit';
-    let node = new JTopo.Node("");    // 创建一个节点
-    node.setSize(100, 50);
-    node.editAble = true;
-    // node.fillColor = "129,130,132";
-    node.setLocation(5, 335);    // 设置节点坐标
+    let node = new JTopo.Node();    // 创建一个节点
+    let nodeWidth = parseInt(WIDTH / 4);
+    let nodeHeight = parseInt(HEIGHT / 4);
+    node.setSize(nodeWidth, nodeHeight);
+    node.fillColor = "129,130,132";
+    node.setLocation(5, HEIGHT - 5 - nodeHeight);    // 设置节点坐标
     scene.add(node); // 放入到场景中
     node.mousedrag(function (event) {
-        let postion = node.getBound();
-        if (postion.left < 5 && postion.top < 5) {
-            node.setLocation(5, 5);
-        }
-        if (postion.left < 5) {
-            node.setLocation(5, postion.top);
-        }
-        if (postion.right > 675) {
-            node.setLocation(675 - postion.width, postion.top);
-        }
-        if (postion.top < 5) {
-            node.setLocation(postion.left, 5);
-        }
-        if (postion.bottom > 395) {
-            node.setLocation(postion.left, 395 - postion.height);
-        }
+        console.log(event);
+        let position = node.getBound();
+        position.left < 5 && node.setLocation(5, position.top);
+        position.right > WIDTH - 5 && node.setLocation(WIDTH - 5 - position.width, position.top);
+        position.top < 5 && node.setLocation(position.left, 5);
+        position.bottom > HEIGHT - 5 && node.setLocation(position.left, HEIGHT - 5 - position.height);
         setPosition(node.getBound());
     });
-    console.log("init position");
     return node;
 }
 

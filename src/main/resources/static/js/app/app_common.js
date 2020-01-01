@@ -147,6 +147,7 @@ function App() {
     this.uhdPosSize = new PosSize("uhd");
     this.topics = new Topics();
     this.opacity = parseFloat($('#opacity').val());
-    this.is_forced = $('#is_forced').val() ? false : true;
+    console.log($('#is_forced').val());
+    this.is_forced = $('#is_forced').val() == '1';
     this.scheduleInfo = new ScheduleInfo();
 }

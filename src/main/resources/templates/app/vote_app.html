@@ -8,12 +8,16 @@
     <script th:src="@{/js/app/rolldate.min.js}"></script>
     <script th:src="@{/js/app/fileinput.js}"></script>
     <script th:src="@{/js/app/zh.js}"></script>
-    <script th:src="@{/js/app/jtopo.js}"></script>
+    <script th:src="@{/js/app/jtopo-0.4.8.js}"></script>
     <script th:src="@{/js/app/app_common.js}"></script>
     <script th:src="@{/js/app/vote.js}"></script>
     <style>
         .no-padding {
             padding: 0;
+        }
+        canvas {
+            width: 98%;
+            height: 33vw;
         }
     </style>
 </head>
@@ -229,7 +233,7 @@
                                 左上角Y
                             </label>
                             <div class="col-sm-2">
-                                <input type="number" id="yPos" name="yPos" class="form-control"/>
+                                <input id="yPos" name="yPos" class="form-control"/>
                             </div>
                             <label class="col-sm-1 col-form-label" style="padding-left: 0; padding-right: 0"
                                    for="width">
