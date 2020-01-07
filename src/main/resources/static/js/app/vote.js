@@ -10,28 +10,19 @@ let HEIGHT = 400;
 
 $(function () {
     //全局初始化日期插件
-    new Rolldate({
-        el: "#playTime",
-        format: "YYYY-MM-DD hh:mm:ss"
+    $('.default-date').datetimepicker({
+        format: "yyyy-mm-dd hh:ii:ss",
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        // minView: 'second',
+        forceParse: 0,
+        // showMeridian: 1,
+        minuteStep: 1
     });
-    new Rolldate({
-        el: "#stopTime",
-        format: "YYYY-MM-DD hh:mm:ss"
-    });
-
-    // $('.default-date').datetimepicker({
-    //     format: "yyyy-mm-dd HH:mm:ss",
-    //     language: 'zh-CN',
-    //     weekStart: 1,
-    //     todayBtn: 1,
-    //     autoclose: 1,
-    //     todayHighlight: 1,
-    //     startView: 2,
-    //     // minView: 'second',
-    //     forceParse: 0,
-    //     // showMeridian: 1,
-    //     minuteStep: 1
-    // });
     initCanvasSize();
     $('#save').click(function () {
         saveAppInfo();

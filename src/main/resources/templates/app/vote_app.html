@@ -2,15 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common_head::common_head(~{::title}, ~{::link}, ~{::script}, ~{::style})">
     <title>投票</title>
-    <!-- 引入js -->
-    <!--<link th:href="@{/css/app/fileinput.css}">-->
-    <link th:href="@{/css/fileinput.css}">
-    <script th:src="@{/js/app/rolldate.min.js}"></script>
-    <script th:src="@{/js/app/fileinput.js}"></script>
-    <script th:src="@{/js/app/zh.js}"></script>
-    <script th:src="@{/js/app/jtopo-0.4.8.js}"></script>
-    <script th:src="@{/js/app/app_common.js}"></script>
-    <script th:src="@{/js/app/vote.js}"></script>
+    <!--文件上传插件-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/fileinput/fileinput.css}">
+    <!--fontawesome字体图表库-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fontawesome/all.css}">
+    <script type="text/javascript" th:src="@{/js/tools/bootstrap/fileinput/piexif.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/tools/bootstrap/fileinput/sortable.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/tools/bootstrap/fileinput/purify.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/tools/bootstrap/fileinput/fileinput.js}"></script>
+    <script type="text/javascript" th:src="@{/js/tools/bootstrap/fileinput/theme.js}"></script>
+    <script type="text/javascript" th:src="@{/js/tools/bootstrap/fileinput/fileinput-zh.js}"></script>
+    <!--日期选择插件-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/timepicker/bootstrap-timepicker.min.css}">
+    <script type="text/javascript" th:src="@{/js/tools/bootstrap/timepicker/bootstrap-datetimepicker.js}"></script>
+    <script type="text/javascript" th:src="@{/js/tools/bootstrap/timepicker/bootstrap-datetimepicker.zh-CN.js}"></script>
+    <!--拓扑绘制插件-->
+    <script type="text/javascript" th:src="@{/js/tools/jtopo-0.4.8.js}"></script>
+    <!--页面独有js-->
+    <script type="text/javascript" th:src="@{/js/app/app_common.js}"></script>
+    <script type="text/javascript" th:src="@{/js/app/vote.js}"></script>
     <style>
         .no-padding {
             padding: 0;
@@ -114,7 +124,7 @@
                                 结果图片
                             </label>
                             <div class="col-sm-8">
-                                <input type="file" id="result_pic" name="result_pic" class="form-control"/>
+                                <input type="file" id="result_pic" name="result_pic" data-preview-file-type="text" class="form-control"/>
                             </div>
                         </div>
                     </form>

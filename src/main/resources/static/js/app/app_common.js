@@ -33,19 +33,18 @@ function ajaxUpload(eleId, requestUrl) {
  *
  */
 function initPicUpload(eleId, originalPath) {
-    //获取实例id
-    // let id = $("#id").val();
     //原图片预览html
     let previewHtml = "";
-    let url = $('#' + eleId).data('value');
-    if (url) {
-        previewHtml = "<img src='" + ftpConfig + "/" + url + "' class='file-preview-image kv-preview-data' " +
-            "style='width: auto; max-width: 90%; max-height: 90%;' alt='图片'>";
+    if (previewHtml) {
+        previewHtml = "<img src='" + originalPath + "' class='file-preview-image kv-preview-data' " +
+            "style='width: auto; max-width: 90%; max-height: 90%;' alt='" + eleId + "'>";
     }
     $("#" + eleId).fileinput({
+        theme: "fa",
         language: "zh", //设置语言
-        uploadUrl: context + "/app/app/uploadPic",
+        uploadUrl: context + "/app/app/uploadPic", //上传地址
         uploadAsync: false,
+        showCaption: false, //是否显示标题
         showUpload: false, //是否显示上传按钮
         showRemove: true, //显示移除按钮
         showPreview: true, //是否显示预览
@@ -64,9 +63,6 @@ function initPicUpload(eleId, originalPath) {
     }).on("filecleared", function (event, data, msg) {
         picFileDeleted = true;
     });
-    if (url) {
-        $('.file-caption-name').append(url);
-    }
 }
 
 /**
